@@ -18,7 +18,7 @@ public class Main extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        ViewDataPet = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnRegisterPet = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -29,11 +29,11 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 0, 42)); // NOI18N
         jLabel1.setText("PAW");
 
-        jButton1.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-        jButton1.setText("View registered Pets");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ViewDataPet.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
+        ViewDataPet.setText("View registered Pets");
+        ViewDataPet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ViewDataPetActionPerformed(evt);
             }
         });
 
@@ -57,7 +57,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegisterPet, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ViewDataPet, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -66,7 +66,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addComponent(btnRegisterPet, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ViewDataPet, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -128,9 +128,11 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void ViewDataPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewDataPetActionPerformed
+        viewPets register = new viewPets();
+        register.setVisible(true);
+        register.setLocationRelativeTo(null);
+    }//GEN-LAST:event_ViewDataPetActionPerformed
 
     private void btnRegisterPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterPetActionPerformed
         RegisterPet register = new RegisterPet();
@@ -139,8 +141,8 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegisterPetActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ViewDataPet;
     private javax.swing.JButton btnRegisterPet;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

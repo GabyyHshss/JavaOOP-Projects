@@ -2,15 +2,20 @@
 package dev.gabyy.petgrooming.gui;
 
 import dev.gabyy.petgrooming.logic.Controller;
+import dev.gabyy.petgrooming.logic.Pet;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 
-public class RegisterPet extends javax.swing.JFrame {
-    Controller control = new Controller();
-
-    public RegisterPet() {
+public class ModifyPet extends javax.swing.JFrame {
+    Controller control = null;
+    int clientId;
+    Pet pet;
+    
+    public ModifyPet(int clientId) {
+        control = new Controller();
         initComponents();
+        loadData(clientId);
     }
 
     @SuppressWarnings("unchecked")
@@ -32,8 +37,8 @@ public class RegisterPet extends javax.swing.JFrame {
         txtName = new javax.swing.JTextField();
         txtBreed = new javax.swing.JTextField();
         txtColor = new javax.swing.JTextField();
-        txtOwner = new javax.swing.JTextField();
-        txtNumber = new javax.swing.JTextField();
+        txtOwnerName = new javax.swing.JTextField();
+        txtOwnerNumber = new javax.swing.JTextField();
         lblObservation = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtObservations = new javax.swing.JTextArea();
@@ -41,11 +46,12 @@ public class RegisterPet extends javax.swing.JFrame {
         cmbAttention = new javax.swing.JComboBox<>();
         btnSave = new javax.swing.JButton();
         btnClean = new javax.swing.JButton();
+        lblSubTitle1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblSubTitle.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-        lblSubTitle.setText("¡Pups at Wash!");
+        lblSubTitle.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        lblSubTitle.setText("Modify Pet Information");
 
         lblTitle.setFont(new java.awt.Font("Liberation Sans", 0, 42)); // NOI18N
         lblTitle.setText("PAW");
@@ -85,15 +91,15 @@ public class RegisterPet extends javax.swing.JFrame {
             }
         });
 
-        txtOwner.addActionListener(new java.awt.event.ActionListener() {
+        txtOwnerName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOwnerActionPerformed(evt);
+                txtOwnerNameActionPerformed(evt);
             }
         });
 
-        txtNumber.addActionListener(new java.awt.event.ActionListener() {
+        txtOwnerNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumberActionPerformed(evt);
+                txtOwnerNumberActionPerformed(evt);
             }
         });
 
@@ -151,13 +157,13 @@ public class RegisterPet extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblAllergic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblOwner, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtOwner, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtOwnerName, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAttention, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbAllergic, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbAttention, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(43, 43, 43))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(txtNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtOwnerNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(152, 152, 152))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(lblObservation, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,7 +191,7 @@ public class RegisterPet extends javax.swing.JFrame {
                         .addGap(48, 48, 48)
                         .addComponent(lblOwner)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtOwnerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -203,7 +209,7 @@ public class RegisterPet extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblNumber)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtOwnerNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblObservation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -215,32 +221,40 @@ public class RegisterPet extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        lblSubTitle1.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
+        lblSubTitle1.setText("¡Pups at Wash!");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
                         .addComponent(lblTitle)
+                        .addGap(7, 7, 7)
+                        .addComponent(lblSubTitle1)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(lblSubTitle)
-                        .addGap(244, 244, 244))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(lblSubTitle)))
+                .addGap(110, 110, 110))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitle)
-                    .addComponent(lblSubTitle))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lblSubTitle)
+                    .addComponent(lblSubTitle1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -251,11 +265,13 @@ public class RegisterPet extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 886, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -273,13 +289,13 @@ public class RegisterPet extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtColorActionPerformed
 
-    private void txtOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOwnerActionPerformed
+    private void txtOwnerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOwnerNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtOwnerActionPerformed
+    }//GEN-LAST:event_txtOwnerNameActionPerformed
 
-    private void txtNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumberActionPerformed
+    private void txtOwnerNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOwnerNumberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNumberActionPerformed
+    }//GEN-LAST:event_txtOwnerNumberActionPerformed
 
     private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanActionPerformed
         btnCleanAll();
@@ -288,8 +304,8 @@ public class RegisterPet extends javax.swing.JFrame {
         txtName.setText("");
         txtColor.setText("");
         txtBreed.setText("");
-        txtNumber.setText("");
-        txtOwner.setText("");
+        txtOwnerNumber.setText("");
+        txtOwnerName.setText("");
         txtObservations.setText("");
         cmbAllergic.setSelectedIndex(0);
         cmbAttention.setSelectedIndex(0);
@@ -299,22 +315,22 @@ public class RegisterPet extends javax.swing.JFrame {
         String name = txtName.getText();
         String breed = txtBreed.getText();
         String color = txtColor.getText();
-        String numberOwner = txtNumber.getText();
         String obs = txtObservations.getText();
-        String ownerName = txtOwner.getText();
-        
         String allergic = (String) cmbAllergic.getSelectedItem();
         String attention = (String) cmbAttention.getSelectedItem();
+        //Owner Data
+        String ownerName = txtOwnerName.getText();
+        String ownerNumber = txtOwnerNumber.getText();
         
-        control.saveAll(name, breed, color, numberOwner, obs, ownerName, allergic, attention);
+        control.modifyPet(pet, name, breed, color, obs,allergic, attention, ownerName, ownerNumber);
         
-        JOptionPane optionPane = new JOptionPane("¡The data was successfully saved!");
-        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = optionPane.createDialog("Success.");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
+        showMessage("¡Success!","Inf","Paw says: ");
         
-        btnCleanAll();
+        viewPets screen = new viewPets();
+        screen.setVisible(true);
+        screen.setLocationRelativeTo(null);
+        
+        this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
 
@@ -336,12 +352,43 @@ public class RegisterPet extends javax.swing.JFrame {
     private javax.swing.JLabel lblObservation;
     private javax.swing.JLabel lblOwner;
     private javax.swing.JLabel lblSubTitle;
+    private javax.swing.JLabel lblSubTitle1;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextField txtBreed;
     private javax.swing.JTextField txtColor;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtNumber;
     private javax.swing.JTextArea txtObservations;
-    private javax.swing.JTextField txtOwner;
+    private javax.swing.JTextField txtOwnerName;
+    private javax.swing.JTextField txtOwnerNumber;
     // End of variables declaration//GEN-END:variables
+
+    private void loadData(int clientId) {
+        
+        this.pet = control.bringPet(clientId);
+        
+        //Pets Data
+        txtName.setText(pet.getName());
+        txtBreed.setText(pet.getBreed());
+        txtColor.setText(pet.getColor());
+        txtOwnerNumber.setText(pet.getOwner().getName());
+        txtObservations.setText(pet.getObservations());
+        txtOwnerName.setText(pet.getOwner().getCelOwner());
+        
+        // Set allergic, and special attention options. With ternary operators.
+        cmbAllergic.setSelectedIndex(pet.getAllergic().equals("Yes") ? 1 : 2);
+        cmbAttention.setSelectedIndex(pet.getSpecialAttention().equals("Yes") ? 1 : 2);
+
+       }
+    
+    public void showMessage(String msg, String type, String title) {
+        JOptionPane optionPane = new JOptionPane("Paw says: " + msg);
+        if (type.equals("Inf")) {
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        } else if (type.equals("Error")) {
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(title);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    }
 }
