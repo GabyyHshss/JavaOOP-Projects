@@ -1,10 +1,16 @@
 package dev.gabyy.autoluxmotors.logic;
 
-//@Entity
-public class Car {
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-    //@Id
-    //@GeneratedValue(strategy = GenetarionType.SEQUENCE)
+@Entity
+public class Car implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
     private String model;
     private String brand;
